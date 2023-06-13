@@ -1,12 +1,10 @@
 # Turfgrass analysis in PyTorch
 [![MIT License](https://img.shields.io/badge/license-MIT-green.svg)](https://opensource.org/licenses/MIT) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 
-# Example of Turfgrass Simulations
-<details>
-  <summary>The title of the image group</summary><details>
-  <img src="./sample_images/front_RGB.png" name="RGB">
-    <img src="./sample_images/front_mask.png" name="16bit Mask">
-</details>
+
+<img src="./sample_images/front.png" name="RGB">
+
+
 
 <!-- TOC -->
 
