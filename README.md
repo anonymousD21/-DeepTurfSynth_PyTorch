@@ -8,6 +8,7 @@
   - [Main Features](#main-features)
     - [Models](#models)
     - [Datasets](#datasets)
+    - [configs](#configs)
     - [Losses](#losses)
     - [Learning rate schedulers](#learning-rate-schedulers)
     - [Data augmentation](#data-augmentation)
@@ -59,30 +60,30 @@ conda install torchvision
 - (**FCN**) Fully Convolutional Networks for Semantic Segmentation (2015): [[Paper]](https://people.eecs.berkeley.edu/~jonlong/long_shelhamer_fcn.pdf) 
 
 ### Datasets
+Various datasets used to test this code.
 
 - **CityScapes:** First download the images and the annotations (there is two types of annotations, Fine `gtFine_trainvaltest.zip` and Coarse `gtCoarse.zip` annotations, and the images `leftImg8bit_trainvaltest.zip`) from the official website [cityscapes-dataset.com](https://www.cityscapes-dataset.com/downloads/), extract all of them in the same folder, and use the location of this folder in `config.json` for training.
 - **Sugar beet:**
 - **Clover Weed:**
+- **Our Synthetic Turfgrass**
+- **Our real Trufgrass**
 
+## Train and Test
+To Train the network use the following, note the configs folder contains all the configuration used.
 
-## Inference
-To test the network use the following
 
 ```bash
-python inference.py --config config.json --model best_model.pth --images images_folder
-
-
-## Training
-To train a model, 
-- download the dataset to be used to train the model
-- Configure the config file for the desired architecture 
-- Add the correct path to the dataset and hyperparameters
-
-```bash
-python train.py --config config.json
+python train.py --config ./configs/XXXXXX.json 
 ```
 
-The training will automatically be run on the GPUs (if more that one is detected and  multipple GPUs were selected in the config file, `torch.nn.DataParalled` is used for multi-gpu training), if not the CPU is used. The log files will be saved in `saved\runs` and the `.pth` chekpoints in `saved\`, to monitor the training using tensorboard, please run:
+Resume on the `.pth` chekpoints.
+
+```bash
+python train.py --config config.json --resume ./saved/XXProjectXX/best_model.pth --eval true
+```
+
+tensorboard was stable in pyTorch 2 but it vey system dependant. 
+Need to install tensorboard
 
 ```bash
 tensorboard --logdir saved
@@ -94,6 +95,7 @@ Data augmentations are implemented here `\base\base_dataset.py`
 - Transforms.ColorJitter(brightness=0.xxx, contrast=0.xxx, saturation=0.xx, hue=0)]
 - The current ROI in this repo is set to 400x400 pixels 
 - Analysis is done outside of this repo on the data to select augmentation parms.
+- Augmentation of the dataset are saved in augmentation folder see config files
 
 
 ## Code structure
@@ -103,23 +105,24 @@ The code structure is based on [pytorch-template](https://github.com/victoresque
   pytorch-template/
   │
   ├── train.py - main script to start training
-  ├── inference.py - inference using a trained model
   ├── trainer.py - the main trained
-  ├── config_model_dataset.json - holds config for training,model and dataset used 
+  │
+  │
+  ├── dataloader/ - loading the data for different segmentation datasets
+  │
+  ├── models/ - contains models for paper here
+  │
+  ├── configs/ - contains configs files for training and test for paper here
+  │
+  ├── saved/
+  │   ├── runs/ - trained models are saved here
+  │   └── log/ - default logdir for tensorboard and logging output
   │
   ├── base/ - abstract base classes
   │   ├── base_data_loader.py
   │   ├── base_model.py
   │   ├── base_dataset.py - All the data augmentations are implemented here
   │   └── base_trainer.py
-  │
-  ├── dataloader/ - loading the data for different segmentation datasets
-  │
-  ├── models/ - contains models for paper here
-  │
-  ├── saved/
-  │   ├── runs/ - trained models are saved here
-  │   └── log/ - default logdir for tensorboard and logging output
   │  
   └── utils/ - small utility functions
       ├── losses.py - losses used in training the model
@@ -132,9 +135,11 @@ The code structure is based on [pytorch-template](https://github.com/victoresque
 - [x] Test pspnet, enet , deeplabv3 on cityscapes 
 - [x] Add sugarbeet dataset pipeline
 - [x] Add grassclover dataset pipeline 
-- [ ] Add greenway dataset pipeline
-- [ ] Setup support for google colab training
-- [ ] docker support with conda env
+- [x] Add synthetic dataset pipeline
+- [x] Add real dataset pipeline
+- [x] Google colab training tested and worked
+- [x] conda env
+- [ ] docker support with 
 
 ## Acknowledgement
 - Code is based on [PyTorch-segmentation](https://github.com/yassouali/pytorch-segmentation)
