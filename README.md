@@ -64,14 +64,14 @@ conda install torchvision
 - (**SegNet**) A Deep ConvolutionalEncoder-Decoder Architecture for ImageSegmentation (2016): [[Paper]](https://arxiv.org/pdf/1511.00561)
 - (**FCN**) Fully Convolutional Networks for Semantic Segmentation (2015): [[Paper]](https://people.eecs.berkeley.edu/~jonlong/long_shelhamer_fcn.pdf) 
 
-### Datasets
+### Datasets dataloader 
 Various datasets used to test this code.
 
 - **CityScapes:** First download the images and the annotations (there is two types of annotations, Fine `gtFine_trainvaltest.zip` and Coarse `gtCoarse.zip` annotations, and the images `leftImg8bit_trainvaltest.zip`) from the official website [cityscapes-dataset.com](https://www.cityscapes-dataset.com/downloads/), extract all of them in the same folder, and use the location of this folder in `config.json` for training.
 - **Sugar beet:**
 - **Clover Weed:**
 - **Our Synthetic Turfgrass**
-- **Our real Trufgrass**
+- **Our real Tuufgrass**
 
 ## Train and Test
 To Train the network use the following, note the configs folder contains all the configuration used.
